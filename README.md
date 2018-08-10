@@ -80,12 +80,12 @@ Datacash lets you build a transaction in a declarative manner. Here's an example
 var config = {
   data: ["0x6d02", "hello from datacash"],
   cash: {
-    key: "5JZ4RXH4MoXpaUQMcJHo8DxhZtkf5U5VnYd9zZH8BRKZuAbxZEw",
+    key: "5JZ4RXH4MoXpaUQMcJHo8DxhZtkf5U5VnYd9zZH8BRKZuAbxZEw", // WIF compressed
     rpc: "https://cashexplorer.bitcoin.com",
-    fee: 250,
+    feePerByte: 1, // default value 1
     to: [{
       address: "1A2JN4JAUoKCQ5kA4pHhu4qCqma8jZSU81",
-      value: 1000
+      value: 1000 // minimum 546, below this value will be discarded
     }]
   }
 }
@@ -99,10 +99,12 @@ Above config describes a transaction that:
 - through a public JSON-RPC endpoint at [https://cashexplorer.bitcoin.com](https://cashexplorer.bitcoin.com)
 - while tipping the user `1A2JN4JAUoKCQ5kA4pHhu4qCqma8jZSU81` a value of `1000` satoshis.
 
-All you need to do to invoke it is call:
+All you need to do to invoke it is call, and notice must follow a CALLBACK function:
 
 ```
-datacash.send(config)
+datacash.send(config, function(err, tx) {
+  console.log("Here's the transaction! : ", tx)
+})
 ```
 
 Want to instead build a transaction but save it for later or export it? Just call:

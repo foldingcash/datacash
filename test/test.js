@@ -20,8 +20,6 @@ describe('datacash', function() {
           assert.equal(generated.outputs.length, 1)
           // the only existing output is a script
           assert(generated.outputs[0].script);
-          // uses the default fee of 400
-          assert.equal(generated.fee, 400)
 
           done()
         });
@@ -38,8 +36,6 @@ describe('datacash', function() {
           assert.equal(generated.outputs.length, 1)
           // the only existing output is a script
           assert(generated.outputs[0].script);
-          // uses the default fee of 400
-          assert.equal(generated.fee, 400)
 
           done()
         });
@@ -61,8 +57,6 @@ describe('datacash', function() {
 
           // input length 1 => from the user specifiec by the private key
           assert.equal(generated.inputs.length, 1)
-          // uses the default fee of 400
-          assert.equal(generated.fee, 400)
           // contains a 'changeScript'
           assert(generated.changeScript)
 
@@ -80,10 +74,9 @@ describe('datacash', function() {
           done()
         });
       })
-      it('cash.fee only', function(done) {
+      it('cash only', function(done) {
         const options = {
           cash: {
-            fee: 100
           }
         }
         datacash.build(options, function(err, tx) {
@@ -93,20 +86,17 @@ describe('datacash', function() {
           let generated = tx.toObject();
           assert.equal(generated.inputs.length, 0)
           assert.equal(generated.outputs.length, 0)
-          assert.equal(generated.fee, 100)
           done()
         })
       })
-      it('cash.key and cash.fee', function(done) {
+      it('cash.key and cash', function(done) {
         const options = {
           cash: {
             key: privKey,
-            fee: 100
           }
         }
         datacash.build(options, function(err, tx) {
           let generated = tx.toObject();
-          assert.equal(generated.fee, 100)
           done()
         })
       })
