@@ -1,5 +1,5 @@
 {
-  "name": "datacash",
+  "name": "@cyio/datacash",
   "version": "1.2.0",
   "description": "post data over bitcoin cash",
   "main": "index.js",

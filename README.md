@@ -38,7 +38,7 @@ Post to both Memo.cash and Blockpress with a single interface.
 ## 1. In node.js
 
 ```
-npm install datacash
+npm install @cyio/datacash
 ```
 
 and then require it

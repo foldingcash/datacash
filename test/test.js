@@ -1,5 +1,5 @@
 const assert = require('assert');
-const bch = require('bitcoincashjs');
+const bch = require('bitcore-lib-cash');
 const datacash = require('../index');
 
 // Private Key for Demo Purpose Only
