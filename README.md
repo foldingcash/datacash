@@ -81,7 +81,7 @@ var config = {
   data: ["0x6d02", "hello from datacash"],
   cash: {
     key: "5JZ4RXH4MoXpaUQMcJHo8DxhZtkf5U5VnYd9zZH8BRKZuAbxZEw", // WIF compressed
-    rpc: "https://cashexplorer.bitcoin.com",
+    rpc: "https://rest.bitcoin.com/v1", // 'https://rest.bitcoin.com/v1' for testnet
     feePerByte: 1, // default value 1
     to: [{
       address: "1A2JN4JAUoKCQ5kA4pHhu4qCqma8jZSU81",

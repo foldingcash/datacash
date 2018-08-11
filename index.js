@@ -1,7 +1,8 @@
 const bch = require('bitcore-lib-cash');
-const explorer = require('bitcore-explorers');
+// const explorer = require('bitcore-explorers');
+const explorer = require('./explorer');
 const defaults = {
-  rpc: "https://cashexplorer.bitcoin.com",
+  rpc: "https://rest.bitcoin.com/v1",
   fee: 400,
   feePerByte: 1,
   maxPostBytes: 217,
