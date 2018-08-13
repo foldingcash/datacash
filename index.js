@@ -1,5 +1,4 @@
 const bch = require('bitcore-lib-cash');
-// const explorer = require('bitcore-explorers');
 const explorer = require('./explorer');
 const defaults = {
   rpc: "https://rest.bitcoin.com/v1",

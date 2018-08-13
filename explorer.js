@@ -1,6 +1,6 @@
 'use strict';
 
-const request = require('request');
+const request = require('superagent');
 const bch = require('bitcore-lib-cash');
 
 function Insight(url) {
@@ -9,38 +9,26 @@ function Insight(url) {
   return this;
 }
 
-Insight.prototype.requestPost = function(path, data, callback) {
-  this.request({
-    method: 'POST',
-    url: this.url + path,
-    json: data
-  }, callback);
-};
-
-Insight.prototype.requestGet = function(path, callback) {
-  this.request({
-    method: 'GET',
-    url: this.url + path
-  }, callback);
-};
-
 Insight.prototype.getUnspentUtxos = function(addresses, callback) {
-  this.requestGet('/address/utxo/' + addresses, function(err, res, unspent) {
-    if (err || res.statusCode !== 200) {
-      return callback(err || res);
-    }
-    unspent = JSON.parse(unspent).map(utxo => new bch.Transaction.UnspentOutput(utxo))
-    return callback(null, unspent);
-  });
+  this.request
+    .get(this.url + '/address/utxo/' + addresses)
+    .then(res => {
+      let unspent = res.body
+      unspent = unspent.map(utxo => new bch.Transaction.UnspentOutput(utxo))
+      return callback(null, unspent);
+    }, err => {
+      return callback(err);
+    })
 };
 
 Insight.prototype.broadcast = function(transaction, callback) {
-  this.requestPost('/rawtransactions/sendRawTransaction/' + transaction, null, function(err, res, body) {
-    if (err || res.statusCode !== 200) {
-      return callback(err || body);
-    }
-    return callback(null, body ? body : null);
-  });
+  this.request
+    .post(this.url + '/rawtransactions/sendRawTransaction/' + transaction)
+    .then(res => {
+      return callback(null, res.body ? res.body : null);
+    }, err => {
+      return callback(err);
+    })
 };
 
 module.exports = {
