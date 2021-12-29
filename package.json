@@ -1,6 +1,6 @@
 {
-  "name": "@cyio/datacash",
-  "version": "1.3.0",
+  "name": "@foldingcash/datacash",
+  "version": "0.1.0",
   "description": "post data over bitcoin cash",
   "main": "index.js",
   "scripts": {
