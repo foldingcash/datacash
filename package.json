@@ -12,7 +12,7 @@
     "bitcoincash",
     "bitcoin"
   ],
-  "author": [ "alejandra alejandro", "StrungSafe" ],
+  "authors": [ "alejandra alejandro", "StrungSafe" ],
   "license": "ISC",
   "unpkg": "dist/datacash.min.js",
   "dependencies": {
