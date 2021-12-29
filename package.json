@@ -1,5 +1,5 @@
 {
-  "name": "@foldingcash/datacash",
+  "name": "datacash",
   "version": "0.1.0",
   "description": "post data over bitcoin cash",
   "main": "index.js",
@@ -12,7 +12,7 @@
     "bitcoincash",
     "bitcoin"
   ],
-  "author": "alejandra alejandro",
+  "author": [ "alejandra alejandro", "StrungSafe" ],
   "license": "ISC",
   "unpkg": "dist/datacash.min.js",
   "dependencies": {
@@ -20,9 +20,6 @@
     "bitcore-lib-cash": "^0.18.1",
     "superagent": "^3.8.3"
   },
-  "files": [
-    "dist"
-  ],
   "devDependencies": {
     "browserify": "^16.2.0",
     "mocha": "^5.1.1",
