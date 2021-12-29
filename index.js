@@ -1,5 +1,5 @@
 const bch = require('bitcore-lib-cash');
-const explorer = require('./explorer.js');
+const explorer = require('./explorer');
 const defaults = {
   rpc: "https://rest.bch.actorforth.org/v2",
   fee: 400,
