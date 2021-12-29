@@ -2,7 +2,7 @@
   "name": "datacash",
   "version": "0.1.0",
   "description": "post data over bitcoin cash",
-  "main": "dist/datacash.js",
+  "main": "index.js",
   "scripts": {
     "test": "mocha",
     "build": "browserify index.js --standalone datacash > dist/datacash.js && uglifyjs dist/datacash.js > dist/datacash.min.js"
