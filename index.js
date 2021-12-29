@@ -1,10 +1,10 @@
 const bch = require('bitcore-lib-cash');
 const explorer = require('./explorer');
 const defaults = {
-  rpc: "https://rest.bitcoin.com/v1",
+  rpc: "https://rest.bch.actorforth.org/v2",
   fee: 400,
-  feePerByte: 1,
-  maxPostBytes: 217,
+  feePerByte: 2,
+  maxPostBytes: 214,
 }
 // The end goal of 'build' is to create a hex formated transaction object
 // therefore this function must end with _tx() for all cases 
@@ -24,7 +24,7 @@ var build = function(options, callback) {
     // transaction is already signed
     if (tx.inputs.length > 0 && tx.inputs[0].script) {
       if (options.cash || options.data) {
-        callback(new Error("the transaction is already signed and cannot be modified"))
+        callback && callback(new Error("the transaction is already signed and cannot be modified"))
         return;
       }
     }
@@ -43,14 +43,14 @@ var build = function(options, callback) {
     // key exists => create a signed transaction
     let key = options.cash.key;
     const privateKey = new bch.PrivateKey.fromWIF(key);
-    const address = privateKey.toAddress();
-    const bytesPerInput = 148
-    const bytesPerOutput = 34
-    let opReturnBytes = 0
-    let totalBytes = 0
-    let numInputs = 0
-    let numOuts = 0
-    const insight = new explorer.Insight(rpcaddr)
+    const address = privateKey.toAddress().toCashAddress();
+    const bytesPerInput = 148;
+    const bytesPerOutput = 34;
+    let opReturnBytes = 0;
+    let totalBytes = 0;
+    let numInputs = 0;
+    let numOuts = 0;
+    const insight = new explorer.Insight(rpcaddr);
     insight.getUnspentUtxos(address, function (err, res) {
       let tx = new bch.Transaction().from(res)
       numInputs++;
@@ -80,7 +80,7 @@ var build = function(options, callback) {
 
       let transaction = tx.sign(privateKey);
 
-      callback(null, transaction);
+      callback && callback(null, transaction);
     })
   } else {
     // key doesn't exist => create an unsigned transaction
@@ -88,14 +88,14 @@ var build = function(options, callback) {
     if (script) {
       tx.addOutput(new bch.Transaction.Output({ script: script, satoshis: 0 }));
     }
-    callback(null, tx)
+    callback && callback(null, tx)
   }
 }
 var send = function(options, callback) {
   build(options, function(err, tx) {
     let rpcaddr = (options.cash && options.cash.rpc) ? options.cash.rpc : defaults.rpc;
-    const insight = new explorer.Insight(rpcaddr)
-    insight.broadcast(tx.toString(), callback)
+    const insight = new explorer.Insight(rpcaddr);
+    insight.broadcast(tx.toString(), callback);
   })
 }
 // compose script
